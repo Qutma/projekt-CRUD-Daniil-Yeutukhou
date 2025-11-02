@@ -1,36 +1,53 @@
 <!DOCTYPE html>
-<html>
+<html lang="pl">
 <head>
+    <meta charset="UTF-8">
     <title>Katalog Filmów</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
 </head>
 <body>
+<div class="container">
     <h1>Katalog Filmów</h1>
-    <a href="{{ url_for('add_edit_movie') }}">Dodaj film</a>
+    
+    <div class="average-rating">
+        <strong>Średnia ocena:</strong> {{ average_rating }}
+    </div>
+
+    <a class="btn-main" href="{{ url_for('add_edit_movie') }}">Dodaj film</a>
+
     <table>
-        <tr>
-            <th>Tytuł</th>
-            <th>Gatunek</th>
-            <th>Ocena</th>
-            <th>Komentarz</th>
-            <th>Data obejrzenia</th>
-            <th>Akcje</th>
-        </tr>
+        <thead>
+            <tr>
+                <th>Tytuł</th>
+                <th>Gatunek</th>
+                <th>Typ</th>
+                <th>Rok wydania</th>
+                <th>Ocena</th>
+                <th>Komentarz</th>
+                <th>Data obejrzenia</th>
+                <th>Akcje</th>
+            </tr>
+        </thead>
+        <tbody>
         {% for movie in movies %}
-        <tr>
-            <td>{{ movie.title }}</td>
-            <td>{{ movie.genre }}</td>
-            <td>{{ movie.rating }}</td>
-            <td>{{ movie.comment }}</td>
-            <td>{{ movie.watched_date }}</td>
-            <td>
-                <a href="{{ url_for('add_edit_movie', id=movie.id) }}">Edytuj</a>
-                <form action="{{ url_for('delete_movie', id=movie.id) }}" method="post" style="display:inline;">
-                    <button type="submit">Usuń</button>
-                </form>
-            </td>
-        </tr>
+            <tr>
+                <td>{{ movie.title }}</td>
+                <td>{{ movie.genre }}</td>
+                <td>{{ movie.type }}</td>
+                <td>{{ movie.year }}</td>
+                <td>{{ movie.rating }}</td>
+                <td>{{ movie.comment }}</td>
+                <td>{{ movie.watched_date }}</td>
+                <td>
+                    <a class="btn-edit" href="{{ url_for('add_edit_movie', id=movie.id) }}">Edytuj</a>
+                    <form action="{{ url_for('delete_movie', id=movie.id) }}" method="post" style="display:inline;">
+                        <button class="btn-delete" type="submit">Usuń</button>
+                    </form>
+                </td>
+            </tr>
         {% endfor %}
+        </tbody>
     </table>
+</div>
 </body>
 </html>
