@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>{{ 'Edytuj' if movie else 'Dodaj' }} film</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <h1>{{ 'Edytuj' if movie else 'Dodaj' }} film</h1>
+    <form method="post">
+        <label>Tytuł:</label>
+        <input type="text" name="title" value="{{ movie.title if movie else '' }}" required>
+        
+        <label>Gatunek:</label>
+        <input type="text" name="genre" value="{{ movie.genre if movie else '' }}" required>
+        
+        <label>Ocena:</label>
+        <input type="number" name="rating" min="1" max="10" value="{{ movie.rating if movie else '' }}" required>
+        
+        <label>Komentarz:</label>
+        <textarea name="comment">{{ movie.comment if movie else '' }}</textarea>
+        
+        <label>Data obejrzenia:</label>
+        <input type="date" name="watched_date" value="{{ movie.watched_date if movie else '' }}" required>
+        
+        <br><br>
+        <button type="submit">{{ 'Zapisz' if movie else 'Dodaj' }}</button>
+    </form>
+    <a href="{{ url_for('home') }}">Powrót</a>
+</body>
+</html>
