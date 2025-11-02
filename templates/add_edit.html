@@ -1,30 +1,39 @@
 <!DOCTYPE html>
-<html>
+<html lang="pl">
 <head>
-    <title>{{ 'Edytuj' if movie else 'Dodaj' }} film</title>
+    <meta charset="UTF-8">
+    <title>{% if movie %}Edytuj{% else %}Dodaj{% endif %} Film</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
 </head>
 <body>
-    <h1>{{ 'Edytuj' if movie else 'Dodaj' }} film</h1>
-    <form method="post">
-        <label>Tytuł:</label>
-        <input type="text" name="title" value="{{ movie.title if movie else '' }}" required>
-        
-        <label>Gatunek:</label>
-        <input type="text" name="genre" value="{{ movie.genre if movie else '' }}" required>
-        
-        <label>Ocena:</label>
-        <input type="number" name="rating" min="1" max="10" value="{{ movie.rating if movie else '' }}" required>
-        
-        <label>Komentarz:</label>
-        <textarea name="comment">{{ movie.comment if movie else '' }}</textarea>
-        
-        <label>Data obejrzenia:</label>
-        <input type="date" name="watched_date" value="{{ movie.watched_date if movie else '' }}" required>
-        
-        <br><br>
-        <button type="submit">{{ 'Zapisz' if movie else 'Dodaj' }}</button>
-    </form>
-    <a href="{{ url_for('home') }}">Powrót</a>
+<h1>{% if movie %}Edytuj{% else %}Dodaj{% endif %} Film</h1>
+<form method="post">
+    <label>Tytuł:</label>
+    <input type="text" name="title" value="{{ movie.title if movie else '' }}" required><br>
+
+    <label>Gatunek:</label>
+    <input type="text" name="genre" value="{{ movie.genre if movie else '' }}" required><br>
+
+    <label>Typ:</label>
+    <select name="type" required>
+        <option value="Film" {% if movie and movie.type=='Film' %}selected{% endif %}>Film</option>
+        <option value="Serial" {% if movie and movie.type=='Serial' %}selected{% endif %}>Serial</option>
+    </select><br>
+
+    <label>Rok wydania:</label>
+    <input type="number" name="year" min="1900" max="2100" value="{{ movie.year if movie else '' }}" required><br>
+
+    <label>Ocena:</label>
+    <input type="number" name="rating" min="1" max="10" value="{{ movie.rating if movie else '' }}" required><br>
+
+    <label>Komentarz:</label>
+    <textarea name="comment">{{ movie.comment if movie else '' }}</textarea><br>
+
+    <label>Data obejrzenia:</label>
+    <input type="date" name="watched_date" value="{{ movie.watched_date if movie else '' }}" required><br><br>
+
+    <button type="submit">{{ 'Zapisz' if movie else 'Dodaj' }}</button>
+</form>
+<a class="btn-main" href="{{ url_for('home') }}">Powrót do katalogu</a>
 </body>
 </html>
